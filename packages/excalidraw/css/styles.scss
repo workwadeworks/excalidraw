@@ -135,15 +135,36 @@ body.excalidraw-cursor-resize * {
     padding-left: var(--sal, 0);
   }
 
-  .panelRow {
-    display: flex;
-    justify-content: space-between;
-  }
+  // 사용 X
+  // .panelRow {
+  //   display: flex;
+  //   justify-content: space-between;
+  // }
 
   .panelColumn {
     display: flex;
     flex-direction: column;
     row-gap: 0.75rem;
+
+    // @Excalibar: dropdown-menu 스타일 적용
+    position: absolute;
+    width: fit-content;
+    bottom: calc(var(--default-button-size) + (var(--space-factor) * 2));
+    top: auto;
+    background-color: var(--island-bg-color);
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+    --gap: 2;
+    padding: 8px 8px;
+    box-sizing: border-box;
+    box-shadow: var(--shadow-island);
+    border-radius: var(--border-radius-lg);
+    transition: box-shadow 0.5s ease-in-out;
+
+    // @Excalibar
+    &.zen-mode {
+      box-shadow: none;
+    }
 
     h3,
     legend,
@@ -249,20 +270,29 @@ body.excalidraw-cursor-resize * {
     padding-right: var(--sar, 0);
     padding-bottom: var(--sab, 0);
     padding-left: var(--sal, 0);
-    z-index: 4;
+    // @Excalibar
+    // z-index: 4;
     display: flex;
     align-items: flex-end;
     pointer-events: none;
 
+    // @Excalibar
+    z-index: var(--zIndex-layerUI);
+
     > .Island {
-      width: 100%;
-      max-width: 100%;
-      min-width: 100%;
-      box-sizing: border-box;
+      // @Excalibar
+      // width: 100%;
+      // max-width: 100%;
+      // min-width: 100%;
+      // box-sizing: border-box;
+      // flex-direction: column;
       max-height: 100%;
       display: flex;
-      flex-direction: column;
       pointer-events: var(--ui-pointerEvents);
+
+      // @Excalibar
+      flex-direction: row;
+      width: fit-content;
 
       .panelColumn {
         padding: 8px 8px 0 8px;
@@ -599,8 +629,9 @@ body.excalidraw-cursor-resize * {
 
   .mobile-misc-tools-container {
     position: absolute;
+    // @Excalibar
     top: calc(5rem - var(--editor-container-padding));
-    right: calc(var(--editor-container-padding) * -1);
+    // right: calc(var(--editor-container-padding) * -1);
     display: flex;
     flex-direction: column;
     border: 1px solid var(--sidebar-border-color);
@@ -608,6 +639,10 @@ body.excalidraw-cursor-resize * {
     border-bottom-left-radius: var(--border-radius-lg);
     border-right: 0;
     overflow: hidden;
+
+    // @Excalibar
+    z-index: var(--zIndex-layerUI);
+    right: 0;
 
     background-color: var(--island-bg-color);
 
@@ -645,9 +680,10 @@ body.excalidraw-cursor-resize * {
     }
   }
 
-  .main-menu-trigger {
-    @include filledButtonOnCanvas;
-  }
+  // @Excalibar
+  // .main-menu-trigger {
+  //   @include filledButtonOnCanvas;
+  // }
 
   .App-mobile-menu,
   .App-menu__left {

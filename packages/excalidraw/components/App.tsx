@@ -466,7 +466,8 @@ import BraveMeasureTextError from "./BraveMeasureTextError";
 import { ContextMenu, CONTEXT_MENU_SEPARATOR } from "./ContextMenu";
 import { activeEyeDropperAtom } from "./EyeDropper";
 import FollowMode from "./FollowMode/FollowMode";
-import LayerUI from "./LayerUI";
+// import LayerUI from "./LayerUI";
+import ExcalibarUi from "./excalibar/ExcalibarUi";
 import { ElementCanvasButton } from "./MagicButton";
 import { SVGLayer } from "./SVGLayer";
 import { searchItemInFocusAtom } from "./SearchMenu";
@@ -1631,7 +1632,7 @@ class App extends React.Component<AppProps, AppState> {
                       <ExcalidrawActionManagerContext.Provider
                         value={this.actionManager}
                       >
-                        <LayerUI
+                        {/* <LayerUI
                           canvas={this.canvas}
                           appState={this.state}
                           files={this.files}
@@ -1664,7 +1665,39 @@ class App extends React.Component<AppProps, AppState> {
                           }
                         >
                           {this.props.children}
-                        </LayerUI>
+                        </LayerUI> */}
+                        <ExcalibarUi
+                          canvas={this.canvas}
+                          appState={this.state}
+                          files={this.files}
+                          setAppState={this.setAppState}
+                          actionManager={this.actionManager}
+                          elements={this.scene.getNonDeletedElements()}
+                          onLockToggle={this.toggleLock}
+                          // onPenModeToggle={this.togglePenMode}
+                          onHandToolToggle={this.onHandToolToggle}
+                          // langCode={getLanguage().code}
+                          // renderTopRightUI={renderTopRightUI}
+                          // renderCustomStats={renderCustomStats}
+                          // showExitZenModeBtn={
+                          //   typeof this.props?.zenModeEnabled === "undefined" &&
+                          //   this.state.zenModeEnabled
+                          // }
+                          UIOptions={this.props.UIOptions}
+                          onExportImage={this.onExportImage}
+                          // renderWelcomeScreen={
+                          //   !this.state.isLoading &&
+                          //   this.state.showWelcomeScreen &&
+                          //   this.state.activeTool.type === "selection" &&
+                          //   !this.state.zenModeEnabled &&
+                          //   !this.scene.getElementsIncludingDeleted().length
+                          // }
+                          app={this}
+                          // isCollaborating={this.props.isCollaborating}
+                          generateLinkForSelection={
+                            this.props.generateLinkForSelection
+                          }
+                        ></ExcalibarUi>
 
                         <div className="excalidraw-textEditorContainer" />
                         <div className="excalidraw-contextMenuContainer" />

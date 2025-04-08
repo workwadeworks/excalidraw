@@ -3,34 +3,49 @@
 .excalidraw {
   .dropdown-menu {
     position: absolute;
-    top: 100%;
+    // @Excalibar
+    // top: 100%;
     margin-top: 0.5rem;
 
-    &--mobile {
-      left: 0;
-      width: 100%;
-      row-gap: 0.75rem;
+    // @Excalibar
+    width: fit-content;
+    bottom: calc(var(--default-button-size) + (var(--space-factor) * 2));
+    top: auto;
 
-      .dropdown-menu-container {
-        padding: 8px 8px;
-        box-sizing: border-box;
-        // background-color: var(--island-bg-color);
-        box-shadow: var(--shadow-island);
-        border-radius: var(--border-radius-lg);
-        position: relative;
-        transition: box-shadow 0.5s ease-in-out;
+    // @Excalibar
+    // &--mobile {
+    //   left: 0;
+    //   width: 100%;
+    //   row-gap: 0.75rem;
 
-        &.zen-mode {
-          box-shadow: none;
-        }
-      }
-    }
+    //   .dropdown-menu-container {
+    //     padding: 8px 8px;
+    //     box-sizing: border-box;
+    //     // background-color: var(--island-bg-color);
+    //     box-shadow: var(--shadow-island);
+    //     border-radius: var(--border-radius-lg);
+    //     position: relative;
+    //     transition: box-shadow 0.5s ease-in-out;
+
+    //     &.zen-mode {
+    //       box-shadow: none;
+    //     }
+    //   }
+    // }
 
     .dropdown-menu-container {
       background-color: var(--island-bg-color);
       max-height: calc(100vh - 150px);
       overflow-y: auto;
       --gap: 2;
+
+      // @Excalibar
+      padding: 8px 8px;
+      box-sizing: border-box;
+      box-shadow: var(--shadow-island);
+      border-radius: var(--border-radius-lg);
+      position: relative;
+      transition: box-shadow 0.5s ease-in-out;
     }
 
     .dropdown-menu-item-base {
@@ -178,12 +193,22 @@
 
   .dropdown-menu-button {
     @include outlineButtonStyles;
-    width: var(--lg-button-size);
-    height: var(--lg-button-size);
+    // @Excalibar
+    // width: var(--lg-button-size);
+    // height: var(--lg-button-size);
 
-    --background: var(--color-surface-mid);
+    // @Excalibar
+    // --background: var(--color-surface-mid);
 
-    background-color: var(--background);
+    // @Excalibar
+    // background-color: var(--background);
+
+    // @Excalibar
+    width: var(--default-button-size);
+    height: var(--default-button-size);
+    border: none;
+    margin: 0;
+    padding: 0;
 
     @at-root .excalidraw.theme--dark#{&} {
       --background: var(--color-surface-high);
@@ -199,7 +224,9 @@
     }
 
     &:active {
-      border-color: var(--color-primary);
+      // @Excalibar
+      // border-color: var(--color-primary);
+      border: 1px solid var(--color-primary);
     }
 
     svg {
@@ -207,12 +234,13 @@
       height: var(--lg-icon-size);
     }
 
-    &--mobile {
-      border: none;
-      margin: 0;
-      padding: 0;
-      width: var(--default-button-size);
-      height: var(--default-button-size);
-    }
+    // @Excalibar
+    // &--mobile {
+    //   border: none;
+    //   margin: 0;
+    //   padding: 0;
+    //   width: var(--default-button-size);
+    //   height: var(--default-button-size);
+    // }
   }
 }

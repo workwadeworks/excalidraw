@@ -1,4 +1,10 @@
-import { isWindows, KEYS, matchKey, arrayToMap } from "@excalidraw/common";
+import {
+  isWindows,
+  KEYS,
+  matchKey,
+  arrayToMap,
+  getShortcutKey,
+} from "@excalidraw/common";
 
 import type { SceneElementsMap } from "@excalidraw/element/types";
 
@@ -80,6 +86,7 @@ export const createUndoAction: ActionCreator = (history, store) => ({
         icon={UndoIcon}
         aria-label={t("buttons.undo")}
         onClick={updateData}
+        title={`${t("buttons.undo")} — ${getShortcutKey("CtrlOrCmd+Z")}`} // @Excalibar
         size={data?.size || "medium"}
         disabled={isUndoStackEmpty}
         data-testid="button-undo"
@@ -120,6 +127,7 @@ export const createRedoAction: ActionCreator = (history, store) => ({
         icon={RedoIcon}
         aria-label={t("buttons.redo")}
         onClick={updateData}
+        title={`${t("buttons.redo")} — ${getShortcutKey("CtrlOrCmd+Shift+Z")}`} // @Excalibar
         size={data?.size || "medium"}
         disabled={isRedoStackEmpty}
         data-testid="button-redo"

@@ -7,11 +7,26 @@
 
 .zoom-button,
 .undo-redo-buttons button {
-  border-radius: 0 !important;
-  background-color: var(--color-surface-low) !important;
+  // @Excalibar
+  // border-radius: 0 !important;
+  // background-color: var(--color-surface-low) !important;
   font-size: 0.875rem !important;
-  width: var(--lg-button-size);
-  height: var(--lg-button-size);
+  // @Excalibar
+  // width: var(--lg-button-size);
+  // height: var(--lg-button-size);
+  width: var(--default-button-size);
+  height: var(--default-button-size);
+
+  // @Excalibar
+  &:hover {
+    background: var(--button-hover-bg) !important;
+  }
+
+  // @Excalibar
+  &:active {
+    background: var(--button-active-bg) !important;
+    border: 1px solid var(--button-active-border) !important;
+  }
 
   svg {
     width: var(--lg-icon-size) !important;

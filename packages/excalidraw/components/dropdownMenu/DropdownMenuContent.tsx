@@ -5,8 +5,9 @@ import { EVENT, KEYS } from "@excalidraw/common";
 
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { useStable } from "../../hooks/useStable";
-import { useDevice } from "../App";
-import { Island } from "../Island";
+// @Excalibar
+// import { useDevice } from "../App";
+// import { Island } from "../Island";
 import Stack from "../Stack";
 
 import { DropdownMenuContentPropsContext } from "./common";
@@ -27,7 +28,8 @@ const MenuContent = ({
   onSelect?: (event: Event) => void;
   style?: React.CSSProperties;
 }) => {
-  const device = useDevice();
+  // @Excalibar
+  // const device = useDevice();
   const menuRef = useRef<HTMLDivElement>(null);
 
   const callbacksRef = useStable({ onClickOutside });
@@ -57,7 +59,8 @@ const MenuContent = ({
   }, [callbacksRef]);
 
   const classNames = clsx(`dropdown-menu ${className}`, {
-    "dropdown-menu--mobile": device.editor.isMobile,
+    // @Excalibar
+    // "dropdown-menu--mobile": device.editor.isMobile,
   }).trim();
 
   return (
@@ -70,7 +73,7 @@ const MenuContent = ({
       >
         {/* the zIndex ensures this menu has higher stacking order,
     see https://github.com/excalidraw/excalidraw/pull/1445 */}
-        {device.editor.isMobile ? (
+        {/* {device.editor.isMobile ? (
           <Stack.Col className="dropdown-menu-container">{children}</Stack.Col>
         ) : (
           <Island
@@ -80,7 +83,9 @@ const MenuContent = ({
           >
             {children}
           </Island>
-        )}
+        )} */}
+        {/* @Excalibar */}
+        <Stack.Col className="dropdown-menu-container">{children}</Stack.Col>
       </div>
     </DropdownMenuContentPropsContext.Provider>
   );

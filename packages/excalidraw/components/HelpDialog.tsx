@@ -9,52 +9,54 @@ import { probablySupportsClipboardBlob } from "../clipboard";
 import { t } from "../i18n";
 
 import { Dialog } from "./Dialog";
-import { ExternalLinkIcon, GithubIcon, youtubeIcon } from "./icons";
+// @Excalibar
+// import { ExternalLinkIcon, GithubIcon, youtubeIcon } from "./icons";
 
 import "./HelpDialog.scss";
 
 import type { JSX } from "react";
 
-const Header = () => (
-  <div className="HelpDialog__header">
-    <a
-      className="HelpDialog__btn"
-      href="https://docs.excalidraw.com"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <div className="HelpDialog__link-icon">{ExternalLinkIcon}</div>
-      {t("helpDialog.documentation")}
-    </a>
-    <a
-      className="HelpDialog__btn"
-      href="https://plus.excalidraw.com/blog"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <div className="HelpDialog__link-icon">{ExternalLinkIcon}</div>
-      {t("helpDialog.blog")}
-    </a>
-    <a
-      className="HelpDialog__btn"
-      href="https://github.com/excalidraw/excalidraw/issues"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <div className="HelpDialog__link-icon">{GithubIcon}</div>
-      {t("helpDialog.github")}
-    </a>
-    <a
-      className="HelpDialog__btn"
-      href="https://youtube.com/@excalidraw"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <div className="HelpDialog__link-icon">{youtubeIcon}</div>
-      YouTube
-    </a>
-  </div>
-);
+// @Excalibar
+// const Header = () => (
+//   <div className="HelpDialog__header">
+//     <a
+//       className="HelpDialog__btn"
+//       href="https://docs.excalidraw.com"
+//       target="_blank"
+//       rel="noopener noreferrer"
+//     >
+//       <div className="HelpDialog__link-icon">{ExternalLinkIcon}</div>
+//       {t("helpDialog.documentation")}
+//     </a>
+//     <a
+//       className="HelpDialog__btn"
+//       href="https://plus.excalidraw.com/blog"
+//       target="_blank"
+//       rel="noopener noreferrer"
+//     >
+//       <div className="HelpDialog__link-icon">{ExternalLinkIcon}</div>
+//       {t("helpDialog.blog")}
+//     </a>
+//     <a
+//       className="HelpDialog__btn"
+//       href="https://github.com/excalidraw/excalidraw/issues"
+//       target="_blank"
+//       rel="noopener noreferrer"
+//     >
+//       <div className="HelpDialog__link-icon">{GithubIcon}</div>
+//       {t("helpDialog.github")}
+//     </a>
+//     <a
+//       className="HelpDialog__btn"
+//       href="https://youtube.com/@excalidraw"
+//       target="_blank"
+//       rel="noopener noreferrer"
+//     >
+//       <div className="HelpDialog__link-icon">{youtubeIcon}</div>
+//       YouTube
+//     </a>
+//   </div>
+// );
 
 const Section = (props: { title: string; children: React.ReactNode }) => (
   <>
@@ -136,7 +138,8 @@ export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
         title={t("helpDialog.title")}
         className={"HelpDialog"}
       >
-        <Header />
+        {/* @ Excalibar */}
+        {/* <Header /> */}
         <Section title={t("helpDialog.shortcuts")}>
           <ShortcutIsland
             className="HelpDialog__island--tools"
@@ -184,7 +187,13 @@ export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
             <Shortcut label={t("toolBar.laser")} shortcuts={[KEYS.K]} />
             <Shortcut
               label={t("labels.eyeDropper")}
-              shortcuts={[KEYS.I, "Shift+S", "Shift+G"]}
+              // @Excalibar
+              // shortcuts={[KEYS.I, "Shift+S", "Shift+G"]}
+              shortcuts={[
+                KEYS.I,
+                getShortcutKey("Shift+S"),
+                getShortcutKey("Shift+G"),
+              ]}
             />
             <Shortcut
               label={t("helpDialog.editLineArrowPoints")}
@@ -266,19 +275,27 @@ export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
             />
             <Shortcut
               label={t("helpDialog.zoomToFit")}
-              shortcuts={["Shift+1"]}
+              // @Excalibar
+              // shortcuts={["Shift+1"]}
+              shortcuts={[getShortcutKey("Shift+1")]}
             />
             <Shortcut
               label={t("helpDialog.zoomToSelection")}
-              shortcuts={["Shift+2"]}
+              // @Excalibar
+              // shortcuts={["Shift+2"]}
+              shortcuts={[getShortcutKey("Shift+2")]}
             />
             <Shortcut
               label={t("helpDialog.movePageUpDown")}
-              shortcuts={["PgUp/PgDn"]}
+              // @Excalibar
+              // shortcuts={["PgUp/PgDn"]}
+              shortcuts={[getShortcutKey("PgUp/PgDn")]}
             />
             <Shortcut
               label={t("helpDialog.movePageLeftRight")}
-              shortcuts={["Shift+PgUp/PgDn"]}
+              // @Excalibar
+              // shortcuts={["Shift+PgUp/PgDn"]}
+              shortcuts={[getShortcutKey("Shift+PgUp/PgDn")]}
             />
             <Shortcut
               label={t("buttons.zenMode")}

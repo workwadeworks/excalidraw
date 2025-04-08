@@ -28,6 +28,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    // @Excalibar
+    gap: var(--space-factor);
   }
 
   .color-picker__button {

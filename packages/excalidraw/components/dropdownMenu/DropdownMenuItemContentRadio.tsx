@@ -1,4 +1,5 @@
-import { useDevice } from "../App";
+// @Excalibar
+// import { useDevice } from "../App";
 import { RadioGroup } from "../RadioGroup";
 
 type Props<T> = {
@@ -22,7 +23,8 @@ const DropdownMenuItemContentRadio = <T,>({
   children,
   name,
 }: Props<T>) => {
-  const device = useDevice();
+  // @Excalibar
+  // const device = useDevice();
 
   return (
     <>
@@ -37,7 +39,13 @@ const DropdownMenuItemContentRadio = <T,>({
           choices={choices}
         />
       </div>
-      {shortcut && !device.editor.isMobile && (
+      {/* {shortcut && !device.editor.isMobile && (
+        <div className="dropdown-menu-item__shortcut dropdown-menu-item__shortcut--orphaned">
+          {shortcut}
+        </div>
+      )} */}
+      {/* @Excalibar */}
+      {shortcut && (
         <div className="dropdown-menu-item__shortcut dropdown-menu-item__shortcut--orphaned">
           {shortcut}
         </div>
