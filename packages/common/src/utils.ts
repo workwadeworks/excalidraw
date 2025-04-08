@@ -421,12 +421,16 @@ export const exitFullScreen = () => document.exitFullscreen();
 export const getShortcutKey = (shortcut: string): string => {
   shortcut = shortcut
     .replace(/\bAlt\b/i, "Alt")
-    .replace(/\bShift\b/i, "Shift")
+    // @Excalibar
+    // .replace(/\bShift\b/i, "Shift")
+    .replace(/\bShift\b/i, "⇧")
     .replace(/\b(Enter|Return)\b/i, "Enter");
   if (isDarwin) {
-    return shortcut
-      .replace(/\bCtrlOrCmd\b/gi, "Cmd")
-      .replace(/\bAlt\b/i, "Option");
+    // @Excalibar
+    // return shortcut
+    //   .replace(/\bCtrlOrCmd\b/gi, "Cmd")
+    //   .replace(/\bAlt\b/i, "Option");
+    return shortcut.replace(/\bCtrlOrCmd\b/gi, "⌘").replace(/\bAlt\b/i, "⌥");
   }
   return shortcut.replace(/\bCtrlOrCmd\b/gi, "Ctrl");
 };
