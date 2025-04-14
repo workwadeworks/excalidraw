@@ -251,6 +251,7 @@ export { isLinearElement } from "@excalidraw/element/typeChecks";
 export {
   FONT_FAMILY,
   THEME,
+  KEYS,
   MIME_TYPES,
   ROUNDNESS,
   DEFAULT_LASER_COLOR,
