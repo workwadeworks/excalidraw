@@ -831,6 +831,14 @@ export interface ExcalidrawImperativeAPI {
   onUserFollow: (
     callback: (payload: OnUserFollowedPayload) => void,
   ) => UnsubscribeCallback;
+
+  // @Excalibar
+  onThemeChange: (
+    callback: (theme: AppState["theme"]) => void,
+  ) => UnsubscribeCallback;
+  onToolChange: (
+    callback: (tool: AppState["activeTool"]) => void,
+  ) => UnsubscribeCallback;
 }
 
 export type Device = Readonly<{

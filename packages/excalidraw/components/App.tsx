@@ -702,6 +702,10 @@ class App extends React.Component<AppProps, AppState> {
     ]
   >();
 
+  // @Excalibar
+  onThemeChangeEmitter = new Emitter<[theme: AppState["theme"]]>();
+  onToolChangeEmitter = new Emitter<[tool: AppState["activeTool"]]>();
+
   onPointerDownEmitter = new Emitter<
     [
       activeTool: AppState["activeTool"],
@@ -802,6 +806,10 @@ class App extends React.Component<AppProps, AppState> {
         onPointerUp: (cb) => this.onPointerUpEmitter.on(cb),
         onScrollChange: (cb) => this.onScrollChangeEmitter.on(cb),
         onUserFollow: (cb) => this.onUserFollowEmitter.on(cb),
+
+        // @Excalibar
+        onThemeChange: (cb) => this.onThemeChangeEmitter.on(cb),
+        onToolChange: (cb) => this.onToolChangeEmitter.on(cb),
       } as const;
       if (typeof excalidrawAPI === "function") {
         excalidrawAPI(api);
@@ -2629,6 +2637,10 @@ class App extends React.Component<AppProps, AppState> {
     selectGroupsForSelectedElements.clearCache();
     touchTimeout = 0;
     document.documentElement.style.overscrollBehaviorX = "";
+
+    // @Excalibar
+    this.onThemeChangeEmitter.clear();
+    this.onToolChangeEmitter.clear();
   }
 
   private onResize = withBatchedUpdates(() => {
@@ -2971,6 +2983,14 @@ class App extends React.Component<AppProps, AppState> {
     if (!this.state.isLoading) {
       this.props.onChange?.(elements, this.state, this.files);
       this.onChangeEmitter.trigger(elements, this.state, this.files);
+    }
+
+    // @Excalibar
+    if (prevState.theme !== this.state.theme) {
+      this.onThemeChangeEmitter.trigger(this.state.theme);
+    }
+    if (prevState.activeTool !== this.state.activeTool) {
+      this.onToolChangeEmitter.trigger(this.state.activeTool);
     }
   }
 

@@ -162,6 +162,8 @@ export const getFontFamilyFallbacks = (
 export const THEME = {
   LIGHT: "light",
   DARK: "dark",
+  // @Excalibar
+  SYSTEM: "system",
 } as const;
 
 export const FRAME_STYLE = {
