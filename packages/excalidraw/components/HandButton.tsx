@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { KEYS } from "@excalidraw/common";
 
 import { ToolButton } from "./ToolButton";
-import { handIcon } from "./icons";
+import { handIcon, handOffIcon } from "./icons";
 
 import "./ToolIcon.scss";
 
@@ -20,7 +20,7 @@ export const HandButton = (props: LockIconProps) => {
     <ToolButton
       className={clsx("Shape", { fillable: false })}
       type="radio"
-      icon={handIcon}
+      icon={props.checked ? handIcon : handOffIcon}
       name="editor-current-shape"
       checked={props.checked}
       title={`${props.title} — H`}
