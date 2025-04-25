@@ -77,19 +77,20 @@
     z-index: 1;
   }
 
-  @include isMobile {
-    .context-menu-item {
-      display: block;
+  // @Excalibar
+  // @include isMobile {
+  //   .context-menu-item {
+  //     display: block;
 
-      .context-menu-item__label {
-        margin-inline-end: 0;
-      }
+  //     .context-menu-item__label {
+  //       margin-inline-end: 0;
+  //     }
 
-      .context-menu-item__shortcut {
-        display: none;
-      }
-    }
-  }
+  //     .context-menu-item__shortcut {
+  //       display: none;
+  //     }
+  //   }
+  // }
 
   .context-menu-item-separator {
     border: none;
