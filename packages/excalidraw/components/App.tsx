@@ -352,7 +352,8 @@ import {
   actionSendToBack,
   actionToggleGridMode,
   actionToggleStats,
-  actionToggleZenMode,
+  // @Excalibar
+  // actionToggleZenMode,
   actionUnbindText,
   actionBindText,
   actionUngroup,
@@ -524,6 +525,8 @@ import type {
 } from "../types";
 import type { RoughCanvas } from "roughjs/bin/canvas";
 import type { Action, ActionResult } from "../actions/types";
+// @Excalibar
+// import { useHandleAppTheme } from "@excalidraw/excalidraw/hooks/useHandleAppTheme";
 
 const AppContext = React.createContext<AppClassProperties>(null!);
 const AppPropsContext = React.createContext<AppProps>(null!);
@@ -1567,7 +1570,8 @@ class App extends React.Component<AppProps, AppState> {
 
   public render() {
     const selectedElements = this.scene.getSelectedElements(this.state);
-    const { renderTopRightUI, renderCustomStats } = this.props;
+    // @Excalibar
+    // const { renderTopRightUI, renderCustomStats } = this.props;
 
     const sceneNonce = this.scene.getSceneNonce();
     const { elementsMap, visibleElements } =
@@ -1805,7 +1809,8 @@ class App extends React.Component<AppProps, AppState> {
                             message={this.state.toast.message}
                             onClose={() => this.setToast(null)}
                             duration={this.state.toast.duration}
-                            closable={this.state.toast.closable}
+                            // @Excalibar
+                            // closable={this.state.toast.closable}
                           />
                         )}
                         {this.state.contextMenu && (
@@ -10861,7 +10866,8 @@ class App extends React.Component<AppProps, AppState> {
         return [
           ...options,
           actionToggleGridMode,
-          actionToggleZenMode,
+          // @Excalibar
+          // actionToggleZenMode,
           actionToggleViewMode,
           actionToggleStats,
         ];
@@ -10879,7 +10885,8 @@ class App extends React.Component<AppProps, AppState> {
         CONTEXT_MENU_SEPARATOR,
         actionToggleGridMode,
         actionToggleObjectsSnapMode,
-        actionToggleZenMode,
+        // @Excalibar
+        // actionToggleZenMode,
         actionToggleViewMode,
         actionToggleStats,
       ];
