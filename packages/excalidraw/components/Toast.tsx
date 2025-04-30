@@ -12,14 +12,15 @@ const DEFAULT_TOAST_TIMEOUT = 5000;
 export const Toast = ({
   message,
   onClose,
-  closable = false,
+  // @Excalibar
+  // closable = false,
   // To prevent autoclose, pass duration as Infinity
   duration = DEFAULT_TOAST_TIMEOUT,
   style,
 }: {
   message: string;
   onClose: () => void;
-  closable?: boolean;
+  // closable?: boolean;
   duration?: number;
   style?: CSSProperties;
 }) => {
@@ -52,7 +53,8 @@ export const Toast = ({
       style={style}
     >
       <p className="Toast__message">{message}</p>
-      {closable && (
+      {/* @Excalibar */}
+      {/* {closable && (
         <ToolButton
           icon={CloseIcon}
           aria-label="close"
@@ -60,7 +62,14 @@ export const Toast = ({
           onClick={onClose}
           className="close"
         />
-      )}
+      )} */}
+      <ToolButton
+        icon={CloseIcon}
+        aria-label="close"
+        type="icon"
+        onClick={onClose}
+        className="close"
+      />
     </div>
   );
 };

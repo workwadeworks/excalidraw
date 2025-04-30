@@ -475,13 +475,19 @@ body.excalidraw-cursor-resize * {
     color: var(--icon-fill-color);
 
     border: 1px solid var(--default-border-color);
-    padding: 10px 20px;
+    // padding: 10px 20px;
     position: absolute;
     left: 50%;
-    bottom: 30px;
+    // bottom: 30px;
     transform: translateX(-50%);
     pointer-events: var(--ui-pointerEvents);
     font-family: inherit;
+
+    // @Excalibar
+    height: var(--default-button-size);
+    padding: 0 16px;
+    bottom: calc(var(--default-button-size) - calc(var(--default-button-size) * 0.5));
+    font-size: 0.875rem;
 
     &:hover {
       background-color: var(--button-hover-bg);
@@ -531,10 +537,11 @@ body.excalidraw-cursor-resize * {
     aside {
       display: none;
     }
-    .scroll-back-to-content {
-      bottom: calc(80px + var(--sab, 0));
-      z-index: -1;
-    }
+    // @Excalibar
+    // .scroll-back-to-content {
+    //   bottom: var(--sab, 0);
+    //   z-index: -1;
+    // }
   }
 
   .rtl-mirror {
