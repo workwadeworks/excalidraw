@@ -163,6 +163,8 @@ export type ActiveTool =
       customType: string;
     };
 
+// @Excalibar
+export type ExcalidrawTheme = Theme;
 export type SidebarName = string;
 export type SidebarTabName = string;
 
