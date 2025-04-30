@@ -31,18 +31,20 @@ export const ExcalibarMenu = ({
   app,
 }: ExcalibarMenuProps) => {
   const setAppState = useExcalidrawSetAppState();
+  const isCanvasOpen = appState.openMenu === "canvas";
 
   return (
     <Island padding={0}>
-      <DropdownMenu open={appState.openMenu === "canvas"}>
+      <DropdownMenu open={isCanvasOpen}>
         <DropdownMenu.Trigger
           onToggle={() => {
             setAppState({
-              openMenu: appState.openMenu === "canvas" ? null : "canvas",
+              openMenu: isCanvasOpen ? null : "canvas",
             });
           }}
           data-testid="main-menu-trigger"
           className="main-menu-trigger"
+          data-state={isCanvasOpen ? "active" : "inactive"}
         >
           {HamburgerMenuIcon}
         </DropdownMenu.Trigger>
@@ -59,10 +61,6 @@ export const ExcalibarMenu = ({
           <MainMenu.DefaultItems.SearchMenu />
           <MainMenu.DefaultItems.Help />
           <MainMenu.DefaultItems.ClearCanvas />
-          {/* <MainMenu.Separator />
-          <MainMenu.Group title="Excalidraw links">
-            <MainMenu.DefaultItems.Socials />
-          </MainMenu.Group> */}
           <MainMenu.Separator />
           <MainMenu.Item
             icon={settingsIcon}

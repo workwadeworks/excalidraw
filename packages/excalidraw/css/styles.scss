@@ -699,10 +699,13 @@ body.excalidraw-cursor-resize * {
     }
   }
 
-  // @Excalibar
-  // .main-menu-trigger {
-  //   @include filledButtonOnCanvas;
-  // }
+  .main-menu-trigger {
+    // @Excalibar
+    // @include filledButtonOnCanvas;
+    &[data-state="active"] {
+      background-color: var(--color-surface-primary-container);
+    }
+  }
 
   .App-mobile-menu,
   .App-menu__left {
