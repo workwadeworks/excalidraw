@@ -297,10 +297,11 @@ export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
               // shortcuts={["Shift+PgUp/PgDn"]}
               shortcuts={[getShortcutKey("Shift+PgUp/PgDn")]}
             />
-            <Shortcut
+            {/* @Excalibar */}
+            {/* <Shortcut
               label={t("buttons.zenMode")}
               shortcuts={[getShortcutKey("Alt+Z")]}
-            />
+            /> */}
             <Shortcut
               label={t("buttons.objectsSnapMode")}
               shortcuts={[getShortcutKey("Alt+S")]}
@@ -325,7 +326,8 @@ export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
               label={t("search.title")}
               shortcuts={[getShortcutFromShortcutName("searchMenu")]}
             />
-            <Shortcut
+            {/* @Excalibar */}
+            {/* <Shortcut
               label={t("commandPalette.title")}
               shortcuts={
                 isFirefox
@@ -335,7 +337,7 @@ export const HelpDialog = ({ onClose }: { onClose?: () => void }) => {
                       getShortcutFromShortcutName("commandPalette", 1),
                     ]
               }
-            />
+            /> */}
           </ShortcutIsland>
           <ShortcutIsland
             className="HelpDialog__island--editor"
