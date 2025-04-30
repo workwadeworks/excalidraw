@@ -135,6 +135,10 @@
         margin-inline-start: auto;
         opacity: 0.5;
 
+        // @Excalibar
+        font-size: 0.625rem;
+        font-variant-numeric: tabular-nums;
+
         &--orphaned {
           text-align: right;
           font-size: 0.875rem;
@@ -168,6 +172,9 @@
       align-items: center;
       height: 2rem;
       justify-content: space-between;
+
+      // @Excalibar
+      padding: 0 0 0 0.5rem;
 
       @media screen and (min-width: 1921px) {
         height: 2.25rem;

@@ -155,10 +155,14 @@ export const SelectedShapeActions = ({
 
   return (
     <div className="panelColumn">
-      <div>
+      {/* @Excalibar */}
+      {/* <div>
         {canChangeStrokeColor(appState, targetElements) &&
           renderAction("changeStrokeColor")}
-      </div>
+      </div> */}
+      {canChangeStrokeColor(appState, targetElements) && (
+        <div>{renderAction("changeStrokeColor")}</div>
+      )}
       {canChangeBackgroundColor(appState, targetElements) && (
         <div>{renderAction("changeBackgroundColor")}</div>
       )}

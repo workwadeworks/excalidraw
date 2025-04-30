@@ -309,11 +309,17 @@ export const ChangeCanvasBackground = () => {
     <div style={{ marginTop: "0.5rem" }}>
       <div
         data-testid="canvas-background-label"
-        style={{ fontSize: ".75rem", marginBottom: ".5rem" }}
+        // @Excalibar
+        // style={{ fontSize: ".75rem", marginBottom: ".5rem" }}
+        style={{
+          fontSize: ".875rem",
+          marginBottom: ".125rem",
+          padding: "0 0.5rem",
+        }}
       >
         {t("labels.canvasBackground")}
       </div>
-      <div style={{ padding: "0 0.625rem" }}>
+      <div style={{ padding: "0 0.25rem 0 0.625rem" }}>
         {actionManager.renderAction("changeViewBackgroundColor")}
       </div>
     </div>

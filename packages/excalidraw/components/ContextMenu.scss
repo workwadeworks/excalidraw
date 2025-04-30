@@ -32,9 +32,15 @@
     white-space: nowrap;
     font-family: inherit;
 
-    display: grid;
-    grid-template-columns: 1fr 0.2fr;
+    // @Excalibar
+    // display: grid;
+    // grid-template-columns: 1fr 0.3fr;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+
     align-items: center;
+
 
     &.checkmark::before {
       position: absolute;
@@ -57,7 +63,11 @@
       justify-self: end;
       opacity: 0.6;
       font-family: inherit;
-      font-size: 0.7rem;
+
+      // @Excalibar
+      // font-size: 0.7rem;
+      font-size: 0.625rem;
+      font-variant-numeric: tabular-nums;
     }
   }
 
@@ -94,6 +104,9 @@
 
   .context-menu-item-separator {
     border: none;
-    border-top: 1px solid $oc-gray-5;
+    // @Excalibar
+    // border-top: 1px solid $oc-gray-5;
+    border-top: 1px solid var(--default-border-color);
+    margin: var(--space-factor) 0;
   }
 }

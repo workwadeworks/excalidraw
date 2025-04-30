@@ -192,7 +192,9 @@ body.excalidraw-cursor-resize * {
     }
 
     .buttonList {
-      flex-wrap: wrap;
+      // @Excalibar
+      // flex-wrap: wrap;
+
       display: flex;
       column-gap: 0.5rem;
       row-gap: 0.5rem;
@@ -294,9 +296,10 @@ body.excalidraw-cursor-resize * {
       flex-direction: row;
       width: fit-content;
 
-      .panelColumn {
-        padding: 8px 8px 0 8px;
-      }
+      // @Excalibar
+      // .panelColumn {
+      //   padding: 8px 8px 0 8px;
+      // }
     }
   }
 
