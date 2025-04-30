@@ -1,55 +1,20 @@
-import clsx from "clsx";
 import React from "react";
 
-import {
-  CLASSES,
-  DEFAULT_SIDEBAR,
-  TOOL_TYPE,
-  capitalizeString,
-  isShallowEqual,
-} from "@excalidraw/common";
-
+import { isShallowEqual } from "@excalidraw/common";
 import { mutateElement } from "@excalidraw/element/mutateElement";
-
-import { showSelectedShapeActions } from "@excalidraw/element/showSelectedShapeActions";
-
 import { ShapeCache } from "@excalidraw/element/ShapeCache";
 
 import type { NonDeletedExcalidrawElement } from "@excalidraw/element/types";
 
 import Scene from "../../scene/Scene";
 import { actionToggleStats } from "../../actions";
-import { trackEvent } from "../../analytics";
-import { isHandToolActive } from "../../appState";
-import { TunnelsContext, useInitializeTunnels } from "../../context/tunnels";
 import { UIAppStateContext } from "../../context/ui-appState";
-import { useAtom, useAtomValue } from "../../editor-jotai";
+import { useAtom } from "../../editor-jotai";
 
-import { t } from "../../i18n";
-import { calculateScrollCenter } from "../../scene";
-
-import {
-  CommandPalette,
-  DEFAULT_CATEGORIES,
-} from "../CommandPalette/CommandPalette";
-import { SelectedShapeActions, ShapesSwitcher } from "../Actions";
 import { LoadingMessage } from "../LoadingMessage";
-import { LockButton } from "../LockButton";
-import { MobileMenu } from "../MobileMenu";
-import { PasteChartDialog } from "../PasteChartDialog";
-import { Section } from "../Section";
-import Stack from "../Stack";
-import { UserList } from "../UserList";
-import { PenModeButton } from "../PenModeButton";
-import Footer from "../footer/Footer";
-import { isSidebarDockedAtom } from "../Sidebar/Sidebar";
-import MainMenu from "../main-menu/MainMenu";
 import { ActiveConfirmDialog } from "../ActiveConfirmDialog";
-import { useDevice } from "../App";
-import { OverwriteConfirmDialog } from "../OverwriteConfirm/OverwriteConfirm";
-import { LibraryIcon } from "../icons";
-import { DefaultSidebar } from "../DefaultSidebar";
 import { TTDDialog } from "../TTDDialog/TTDDialog";
+import { Stats } from "../Stats";
 import ElementLinkDialog from "../ElementLinkDialog";
 import { ErrorDialog } from "../ErrorDialog";
 import { EyeDropper, activeEyeDropperAtom } from "../EyeDropper";
@@ -60,6 +25,12 @@ import { JSONExportDialog } from "../JSONExportDialog";
 import "../LayerUI.scss";
 import "../Toolbar.scss";
 
+import { ExcalibarSideToolbar } from "./ExcalibarSideToolbar";
+import { ExcalibarMenu } from "./ExcalibarMenu";
+import { ExcalibarZoomToolbar } from "./ExcalibarZoomToolbar";
+import { ScrollBackButton } from "./ScrollBackButton";
+import { ExcalibarSidebar } from "./ExcalibarSidebar";
+
 import type { ActionManager } from "../../actions/manager";
 import type {
   AppProps,
@@ -68,11 +39,6 @@ import type {
   UIAppState,
   AppClassProperties,
 } from "../../types";
-
-import { ExcalibarSideToolbar } from "./ExcalibarSideToolbar";
-import { ExcalibarMenu } from "./ExcalibarMenu";
-import { ExcalibarZoomToolbar } from "@excalidraw/excalidraw/components/excalibar/ExcalibarZoomToolbar";
-import { ScrollBackButton } from "@excalidraw/excalidraw/components/excalibar/ScrollBackButton";
 
 interface ExcalibarUIProps {
   actionManager: ActionManager;
@@ -83,17 +49,9 @@ interface ExcalibarUIProps {
   elements: readonly NonDeletedExcalidrawElement[];
   onLockToggle: () => void;
   onHandToolToggle: () => void;
-  // onPenModeToggle: AppClassProperties["togglePenMode"];
-  // showExitZenModeBtn: boolean;
-  // langCode: Language["code"];
-  // renderTopRightUI?: ExcalidrawProps["renderTopRightUI"];
-  // renderCustomStats?: ExcalidrawProps["renderCustomStats"];
   UIOptions: AppProps["UIOptions"];
   onExportImage: AppClassProperties["onExportImage"];
-  // renderWelcomeScreen: boolean;
-  // children?: React.ReactNode;
   app: AppClassProperties;
-  // isCollaborating: boolean;
   generateLinkForSelection?: AppProps["generateLinkForSelection"];
 }
 
@@ -111,59 +69,18 @@ const ExcalibarUi = ({
   app,
   generateLinkForSelection,
 }: ExcalibarUIProps) => {
-  const device = useDevice();
-  const tunnels = useInitializeTunnels();
-
-  const TunnelsJotaiProvider = tunnels.tunnelsJotai.Provider;
-
   const [eyeDropperState, setEyeDropperState] = useAtom(activeEyeDropperAtom);
-
-  const renderSidebars = () => {
-    return (
-      <DefaultSidebar
-        __fallback
-        onDock={(docked) => {
-          trackEvent(
-            "sidebar",
-            `toggleDock (${docked ? "dock" : "undock"})`,
-            `(${device.editor.isMobile ? "mobile" : "desktop"})`,
-          );
-        }}
-      />
-    );
-  };
-
-  const isSidebarDocked = useAtomValue(isSidebarDockedAtom);
 
   const ExcalibarUiJsx = (
     <>
-      {/* ------------------------- tunneled UI ---------------------------- */}
-      <DefaultSidebar.Trigger
-        __fallback
-        icon={LibraryIcon}
-        title={capitalizeString(t("toolBar.library"))}
-        onToggle={(open) => {
-          if (open) {
-            trackEvent(
-              "sidebar",
-              `${DEFAULT_SIDEBAR.name} (open)`,
-              `button (${device.editor.isMobile ? "mobile" : "desktop"})`,
-            );
-          }
-        }}
-        tab={DEFAULT_SIDEBAR.defaultTab}
-      >
-        {/*t("toolBar.library") //zsviczian */}
-      </DefaultSidebar.Trigger>
-      {appState.openDialog?.name === "ttd" && <TTDDialog __fallback />}
-      {/* ------------------------------------------------------------------ */}
-
       {appState.isLoading && <LoadingMessage delay={250} />}
       {appState.errorMessage && (
         <ErrorDialog onClose={() => setAppState({ errorMessage: null })}>
           {appState.errorMessage}
         </ErrorDialog>
       )}
+
+      <ExcalibarSidebar />
 
       {eyeDropperState && (
         <EyeDropper
@@ -213,7 +130,20 @@ const ExcalibarUi = ({
           }}
         />
       )}
+      {appState.stats.open &&
+        !appState.zenModeEnabled &&
+        !appState.viewModeEnabled &&
+        appState.openDialog?.name !== "elementLinkSelector" && (
+          <Stats
+            app={app}
+            onClose={() => {
+              actionManager.executeAction(actionToggleStats);
+            }}
+            renderCustomStats={undefined}
+          />
+        )}
 
+      {appState.openDialog?.name === "ttd" && <TTDDialog __fallback />}
       {appState.openDialog?.name === "help" && (
         <HelpDialog
           onClose={() => {
@@ -288,11 +218,7 @@ const ExcalibarUi = ({
 
   return (
     <UIAppStateContext.Provider value={appState}>
-      <TunnelsJotaiProvider>
-        <TunnelsContext.Provider value={tunnels}>
-          {ExcalibarUiJsx}
-        </TunnelsContext.Provider>
-      </TunnelsJotaiProvider>
+      {ExcalibarUiJsx}
     </UIAppStateContext.Provider>
   );
 };

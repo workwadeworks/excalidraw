@@ -5,8 +5,9 @@ import { Island } from "@excalidraw/excalidraw/components/Island";
 import type { UIAppState } from "@excalidraw/excalidraw/types";
 import type { ActionManager } from "@excalidraw/excalidraw/actions/manager";
 
-import { useTunnels } from "../../context/tunnels";
 import { t } from "../../i18n";
+
+import { ExcalibarSidebarTrigger } from "./ExcalibarSidebar";
 
 type ExcalibarSideToolbarProps = {
   appState: UIAppState;
@@ -22,17 +23,13 @@ export const ExcalibarSideToolbar = ({
   onLockToggle,
   onHandToolToggle,
 }: ExcalibarSideToolbarProps) => {
-  const { DefaultSidebarTriggerTunnel } = useTunnels();
-
   return (
     <Island className="mobile-misc-tools-container">
-      {/* @Excalibar TODO: 터널 풀기 */}
       {!appState.viewModeEnabled &&
         appState.openDialog?.name !== "elementLinkSelector" && (
-          <DefaultSidebarTriggerTunnel.Out />
+          <ExcalibarSidebarTrigger />
         )}
 
-      {/* @Excalibar TODO: Toggle View Mode 버튼 추가 */}
       {/* <PenModeButton
         checked={appState.penMode}
         onChange={() => onPenModeToggle(null)}
