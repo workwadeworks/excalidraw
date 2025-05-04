@@ -139,7 +139,9 @@ export type ActionName =
   | "copyElementLink"
   | "linkToElement"
   | "cropEditor"
-  | "wrapSelectionInFrame";
+  | "wrapSelectionInFrame"
+  | "toggleLassoTool"
+  | "toggleShapeSwitch";
 
 export type PanelComponentProps = {
   elements: readonly ExcalidrawElement[];
@@ -194,7 +196,8 @@ export interface Action {
           | "menu"
           | "collab"
           | "hyperlink"
-          | "search_menu";
+          | "search_menu"
+          | "shape_switch";
         action?: string;
         predicate?: (
           appState: Readonly<AppState>,

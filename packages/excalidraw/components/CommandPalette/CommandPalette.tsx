@@ -11,6 +11,8 @@ import {
   isWritableElement,
 } from "@excalidraw/common";
 
+import { actionToggleShapeSwitch } from "@excalidraw/excalidraw/actions/actionToggleShapeSwitch";
+
 import type { MarkRequired } from "@excalidraw/common/utility-types";
 
 import {
@@ -315,6 +317,7 @@ function CommandPaletteInner({
       const toolCommands: CommandPaletteItem[] = [
         actionManager.actions.toggleHandTool,
         actionManager.actions.setFrameAsActiveTool,
+        actionManager.actions.toggleLassoTool,
       ].map((action) => actionToCommand(action, DEFAULT_CATEGORIES.tools));
 
       const editorCommands: CommandPaletteItem[] = [
@@ -407,6 +410,14 @@ function CommandPaletteInner({
           viewMode: true,
           perform: () => {
             actionManager.executeAction(actionToggleSearchMenu);
+          },
+        },
+        {
+          label: t("labels.shapeSwitch"),
+          category: DEFAULT_CATEGORIES.elements,
+          icon: boltIcon,
+          perform: () => {
+            actionManager.executeAction(actionToggleShapeSwitch);
           },
         },
         {

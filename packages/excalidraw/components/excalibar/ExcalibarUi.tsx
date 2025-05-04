@@ -1,12 +1,11 @@
 import React from "react";
 
-import { isShallowEqual } from "@excalidraw/common";
+import { arrayToMap, isShallowEqual } from "@excalidraw/common";
 import { mutateElement } from "@excalidraw/element/mutateElement";
 import { ShapeCache } from "@excalidraw/element/ShapeCache";
 
 import type { NonDeletedExcalidrawElement } from "@excalidraw/element/types";
 
-import Scene from "../../scene/Scene";
 import { actionToggleStats } from "../../actions";
 import { UIAppStateContext } from "../../context/ui-appState";
 import { useAtom } from "../../editor-jotai";
@@ -98,22 +97,18 @@ const ExcalibarUi = ({
 
             if (selectedElements.length) {
               for (const element of selectedElements) {
-                mutateElement(
-                  element,
-                  {
-                    [altKey && eyeDropperState.swapPreviewOnAlt
-                      ? colorPickerType === "elementBackground"
-                        ? "strokeColor"
-                        : "backgroundColor"
-                      : colorPickerType === "elementBackground"
-                      ? "backgroundColor"
-                      : "strokeColor"]: color,
-                  },
-                  false,
-                );
+                mutateElement(element, arrayToMap(elements), {
+                  [altKey && eyeDropperState.swapPreviewOnAlt
+                    ? colorPickerType === "elementBackground"
+                      ? "strokeColor"
+                      : "backgroundColor"
+                    : colorPickerType === "elementBackground"
+                    ? "backgroundColor"
+                    : "strokeColor"]: color,
+                });
                 ShapeCache.delete(element);
               }
-              Scene.getScene(selectedElements[0])?.triggerUpdate();
+              app.scene.triggerUpdate();
             } else if (colorPickerType === "elementBackground") {
               setAppState({
                 currentItemBackgroundColor: color,
@@ -159,7 +154,7 @@ const ExcalibarUi = ({
               openDialog: null,
             });
           }}
-          elementsMap={app.scene.getNonDeletedElementsMap()}
+          scene={app.scene}
           appState={appState}
           generateLinkForSelection={generateLinkForSelection}
         />
