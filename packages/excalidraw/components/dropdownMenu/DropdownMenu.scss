@@ -47,6 +47,8 @@
       border-radius: var(--border-radius-lg);
       position: relative;
       transition: box-shadow 0.5s ease-in-out;
+      border: 1px solid var(--default-border-color);
+      row-gap: 1px;
     }
 
     .dropdown-menu-item-base {
