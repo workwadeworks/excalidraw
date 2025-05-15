@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./packages/excalidraw/dist",
     "rootDir": "./",
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -15,7 +19,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
@@ -32,5 +36,5 @@
     }
   },
   "include": ["packages", "excalidraw-app"],
-  "exclude": ["examples", "dist", "types", "tests"]
+  "exclude": ["examples", "dist", "types", "tests"],
 }
