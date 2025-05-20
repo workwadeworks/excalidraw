@@ -154,6 +154,7 @@
     "save": "現在のファイルに保存",
     "saveAs": "名前を付けて保存",
     "load": "開く",
+    "importLibrary": "ライブラリをインポート",
     "getShareableLink": "共有URLの取得",
     "close": "閉じる",
     "selectLanguage": "言語の選択",

@@ -154,6 +154,7 @@
     "save": "儲存目前檔案",
     "saveAs": "儲存為",
     "load": "開啟",
+    "importLibrary": "匯入程式庫",
     "getShareableLink": "取得共享連結",
     "close": "關閉",
     "selectLanguage": "選擇語言",

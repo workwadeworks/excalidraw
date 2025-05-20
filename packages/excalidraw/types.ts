@@ -607,6 +607,9 @@ export interface ExcalidrawProps {
   aiEnabled?: boolean;
   showDeprecatedFonts?: boolean;
   renderScrollbars?: boolean;
+
+  // @Excalibar
+  onOpenExternalLibrary?: (href: string) => void;
 }
 
 export type SceneData = {

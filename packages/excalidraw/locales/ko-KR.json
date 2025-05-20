@@ -154,6 +154,7 @@
     "save": "현재 파일에 저장",
     "saveAs": "다른 이름으로 저장",
     "load": "열기",
+    "importLibrary": "라이브러리 가져오기",
     "getShareableLink": "공유 가능한 링크 생성",
     "close": "닫기",
     "selectLanguage": "언어 선택",

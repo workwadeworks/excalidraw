@@ -33,6 +33,7 @@ import type {
   LibraryItems,
   UIAppState,
 } from "../types";
+import type Library from "../data/library";
 
 // using an odd number of items per batch so the rendering creates an irregular
 // pattern which looks more organic
@@ -47,22 +48,30 @@ export default function LibraryMenuItems({
   onAddToLibrary,
   onInsertLibraryItems,
   pendingElements,
-  theme,
-  id,
+  // @Excalibar
+  setAppState,
+  library,
   libraryReturnUrl,
+  id,
+  // theme,
   onSelectItems,
   selectedItems,
+  onOpenExternalLibrary,
 }: {
   isLoading: boolean;
   libraryItems: LibraryItems;
   pendingElements: LibraryItem["elements"];
   onInsertLibraryItems: (libraryItems: LibraryItems) => void;
   onAddToLibrary: (elements: LibraryItem["elements"]) => void;
+  // @Excalibar
+  setAppState: React.Component<any, UIAppState>["setState"];
+  library: Library;
   libraryReturnUrl: ExcalidrawProps["libraryReturnUrl"];
-  theme: UIAppState["theme"];
   id: string;
+  // theme: UIAppState["theme"];
   selectedItems: LibraryItem["id"][];
   onSelectItems: (id: LibraryItem["id"][]) => void;
+  onOpenExternalLibrary?: ExcalidrawProps["onOpenExternalLibrary"];
 }) {
   const libraryContainerRef = useRef<HTMLDivElement>(null);
   const scrollPosition = useScrollPosition<HTMLDivElement>(libraryContainerRef);
@@ -228,6 +237,10 @@ export default function LibraryMenuItems({
           selectedItems={selectedItems}
           onSelectItems={onSelectItems}
           className="library-menu-dropdown-container--in-heading"
+          // @Excalibar
+          libraryReturnUrl={libraryReturnUrl}
+          id={id}
+          onOpenExternalLibrary={onOpenExternalLibrary}
         />
       )}
       <Stack.Col
@@ -335,13 +348,19 @@ export default function LibraryMenuItems({
         {showBtn && (
           <LibraryMenuControlButtons
             style={{ padding: "16px 0", width: "100%" }}
-            id={id}
-            libraryReturnUrl={libraryReturnUrl}
-            theme={theme}
+            // id={id}
+            // libraryReturnUrl={libraryReturnUrl}
+            // theme={theme}
+            setAppState={setAppState}
+            library={library}
           >
             <LibraryDropdownMenu
               selectedItems={selectedItems}
               onSelectItems={onSelectItems}
+              // @Excalibar
+              libraryReturnUrl={libraryReturnUrl}
+              id={id}
+              onOpenExternalLibrary={onOpenExternalLibrary}
             />
           </LibraryMenuControlButtons>
         )}

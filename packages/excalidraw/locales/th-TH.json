@@ -154,6 +154,7 @@
     "save": "บันทึกเป็นไฟล์ปัจจุบัน",
     "saveAs": "บันทึกเป็น",
     "load": "เปิด",
+    "importLibrary": "นำเข้าคลัง",
     "getShareableLink": "สร้างลิงค์ที่แชร์ได้",
     "close": "ปิด",
     "selectLanguage": "เลือกภาษา",

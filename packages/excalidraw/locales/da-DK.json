@@ -154,6 +154,7 @@
     "save": "Gem til nuværende fil",
     "saveAs": "Gem som",
     "load": "Åbn",
+    "importLibrary": "Importer bibliotek",
     "getShareableLink": "Lav et delbart link",
     "close": "Luk",
     "selectLanguage": "Vælg sprog",

@@ -154,6 +154,7 @@
     "save": "Tallenna nykyiseen tiedostoon",
     "saveAs": "Tallenna nimellä",
     "load": "Avaa",
+    "importLibrary": "Tuo kirjasto",
     "getShareableLink": "Hae jaettava linkki",
     "close": "Sulje",
     "selectLanguage": "Valitse kieli",

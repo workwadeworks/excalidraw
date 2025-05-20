@@ -196,6 +196,7 @@
     "save": "Save to current file",
     "saveAs": "Save as",
     "load": "Open",
+    "importLibrary": "Import Library",
     "getShareableLink": "Get shareable link",
     "close": "Close",
     "selectLanguage": "Select language",

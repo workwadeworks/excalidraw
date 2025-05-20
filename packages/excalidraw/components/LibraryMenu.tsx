@@ -68,6 +68,7 @@ const LibraryMenuContent = memo(
     theme,
     selectedItems,
     onSelectItems,
+    onOpenExternalLibrary,
   }: {
     pendingElements: LibraryItem["elements"];
     onInsertLibraryItems: (libraryItems: LibraryItems) => void;
@@ -79,6 +80,7 @@ const LibraryMenuContent = memo(
     theme: UIAppState["theme"];
     selectedItems: LibraryItem["id"][];
     onSelectItems: (id: LibraryItem["id"][]) => void;
+    onOpenExternalLibrary: ExcalidrawProps["onOpenExternalLibrary"];
   }) => {
     const [libraryItemsData] = useAtom(libraryItemsAtom);
 
@@ -147,19 +149,25 @@ const LibraryMenuContent = memo(
           onAddToLibrary={_onAddToLibrary}
           onInsertLibraryItems={onInsertLibraryItems}
           pendingElements={pendingElements}
-          id={id}
+          // @Excalibar
+          setAppState={setAppState}
+          library={library}
           libraryReturnUrl={libraryReturnUrl}
-          theme={theme}
+          id={id}
+          // theme={theme}
           onSelectItems={onSelectItems}
           selectedItems={selectedItems}
+          onOpenExternalLibrary={onOpenExternalLibrary}
         />
         {showBtn && (
           <LibraryMenuControlButtons
             className="library-menu-control-buttons--at-bottom"
             style={{ padding: "16px 12px 0 12px" }}
-            id={id}
-            libraryReturnUrl={libraryReturnUrl}
-            theme={theme}
+            // id={id}
+            // libraryReturnUrl={libraryReturnUrl}
+            // theme={theme}
+            setAppState={setAppState}
+            library={library}
           />
         )}
       </LibraryMenuWrapper>
@@ -293,6 +301,7 @@ export const LibraryMenu = memo(() => {
       theme={appState.theme}
       selectedItems={selectedItems}
       onSelectItems={setSelectedItems}
+      onOpenExternalLibrary={appProps.onOpenExternalLibrary}
     />
   );
 });

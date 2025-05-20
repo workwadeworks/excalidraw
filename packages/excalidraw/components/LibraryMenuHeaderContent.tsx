@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import { useCallback, useState } from "react";
 
-import { muteFSAbortError } from "@excalidraw/common";
+import { muteFSAbortError, VERSIONS } from "@excalidraw/common";
 
 import { useUIAppState } from "../context/ui-appState";
-import { fileOpen } from "../data/filesystem";
+// import { fileOpen } from "../data/filesystem";
 import { saveLibraryAsJSON } from "../data/json";
 import { libraryItemsAtom } from "../data/library";
 import { useAtom } from "../editor-jotai";
@@ -22,13 +22,19 @@ import DropdownMenu from "./dropdownMenu/DropdownMenu";
 import {
   DotsIcon,
   ExportIcon,
-  LoadIcon,
+  ExternalLinkIcon,
+  // LoadIcon,
   publishIcon,
   TrashIcon,
 } from "./icons";
 
 import type Library from "../data/library";
-import type { LibraryItem, LibraryItems, UIAppState } from "../types";
+import type {
+  ExcalidrawProps,
+  LibraryItem,
+  LibraryItems,
+  UIAppState,
+} from "../types";
 
 const getSelectedItems = (
   libraryItems: LibraryItems,
@@ -44,6 +50,11 @@ export const LibraryDropdownMenuButton: React.FC<{
   onSelectItems: (items: LibraryItem["id"][]) => void;
   appState: UIAppState;
   className?: string;
+
+  // @Excalibar
+  libraryReturnUrl: ExcalidrawProps["libraryReturnUrl"];
+  id: string;
+  onOpenExternalLibrary?: ExcalidrawProps["onOpenExternalLibrary"];
 }> = ({
   setAppState,
   selectedItems,
@@ -53,6 +64,10 @@ export const LibraryDropdownMenuButton: React.FC<{
   onSelectItems,
   appState,
   className,
+
+  // @Excalibar
+  id,
+  onOpenExternalLibrary,
 }) => {
   const [libraryItemsData] = useAtom(libraryItemsAtom);
   const [isLibraryMenuOpen, setIsLibraryMenuOpen] = useAtom(
@@ -155,26 +170,40 @@ export const LibraryDropdownMenuButton: React.FC<{
     library.setLibrary(nextLibItems);
   };
 
-  const onLibraryImport = async () => {
-    try {
-      await library.updateLibrary({
-        libraryItems: fileOpen({
-          description: "Excalidraw library files",
-          // ToDo: Be over-permissive until https://bugs.webkit.org/show_bug.cgi?id=34442
-          // gets resolved. Else, iOS users cannot open `.excalidraw` files.
-          /*
-            extensions: [".json", ".excalidrawlib"],
-            */
-        }),
-        merge: true,
-        openLibraryMenu: true,
-      });
-    } catch (error: any) {
-      if (error?.name === "AbortError") {
-        console.warn(error);
-        return;
-      }
-      setAppState({ errorMessage: t("errors.importLibraryError") });
+  // @Excalibar
+  // const onLibraryImport = async () => {
+  //   try {
+  //     await library.updateLibrary({
+  //       libraryItems: fileOpen({
+  //         description: "Excalidraw library files",
+  //         // ToDo: Be over-permissive until https://bugs.webkit.org/show_bug.cgi?id=34442
+  //         // gets resolved. Else, iOS users cannot open `.excalidraw` files.
+  //         /*
+  //           extensions: [".json", ".excalidrawlib"],
+  //           */
+  //       }),
+  //       merge: true,
+  //       openLibraryMenu: true,
+  //     });
+  //   } catch (error: any) {
+  //     if (error?.name === "AbortError") {
+  //       console.warn(error);
+  //       return;
+  //     }
+  //     setAppState({ errorMessage: t("errors.importLibraryError") });
+  //   }
+  // };
+  const onLibraryOpen = () => {
+    const href = `${import.meta.env.VITE_APP_LIBRARY_URL}?target=${
+      window.name || "_blank"
+    }&useHash=true&token=${id}&theme=${appState.theme}&version=${
+      VERSIONS.excalidrawLibrary
+    }`;
+
+    if (onOpenExternalLibrary) {
+      onOpenExternalLibrary(href);
+    } else {
+      window.open(href, "_excalidraw_libraries");
     }
   };
 
@@ -202,6 +231,7 @@ export const LibraryDropdownMenuButton: React.FC<{
           onSelect={() => setIsLibraryMenuOpen(false)}
           className="library-menu"
         >
+          {/* @Excalibar
           {!itemsSelected && (
             <DropdownMenu.Item
               onSelect={onLibraryImport}
@@ -211,6 +241,10 @@ export const LibraryDropdownMenuButton: React.FC<{
               {t("buttons.load")}
             </DropdownMenu.Item>
           )}
+          */}
+          <DropdownMenu.Item onSelect={onLibraryOpen} icon={ExternalLinkIcon}>
+            {t("labels.libraries")}
+          </DropdownMenu.Item>
           {!!items.length && (
             <DropdownMenu.Item
               onSelect={onLibraryExport}
@@ -278,10 +312,20 @@ export const LibraryDropdownMenu = ({
   selectedItems,
   onSelectItems,
   className,
+
+  // @Excalibar
+  libraryReturnUrl,
+  id,
+  onOpenExternalLibrary,
 }: {
   selectedItems: LibraryItem["id"][];
   onSelectItems: (id: LibraryItem["id"][]) => void;
   className?: string;
+
+  // @Excalibar
+  libraryReturnUrl: ExcalidrawProps["libraryReturnUrl"];
+  id: string;
+  onOpenExternalLibrary?: ExcalidrawProps["onOpenExternalLibrary"];
 }) => {
   const { library } = useApp();
   const { clearLibraryCache, deleteItemsFromLibraryCache } = useLibraryCache();
@@ -320,6 +364,10 @@ export const LibraryDropdownMenu = ({
       }
       resetLibrary={resetLibrary}
       className={className}
+      // @Excalibar
+      libraryReturnUrl={libraryReturnUrl}
+      id={id}
+      onOpenExternalLibrary={onOpenExternalLibrary}
     />
   );
 };

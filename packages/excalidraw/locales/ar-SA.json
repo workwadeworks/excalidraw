@@ -154,6 +154,7 @@
     "save": "احفظ للملف الحالي",
     "saveAs": "حفظ كـ",
     "load": "فتح",
+    "importLibrary": "استيراد المكتبة",
     "getShareableLink": "احصل على رابط المشاركة",
     "close": "غلق",
     "selectLanguage": "اختر اللغة",

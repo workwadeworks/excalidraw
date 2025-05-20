@@ -154,6 +154,7 @@
     "save": "Desa al fitxer actual",
     "saveAs": "Anomena i desa",
     "load": "Obrir",
+    "importLibrary": "Importar Biblioteca",
     "getShareableLink": "Obté l'enllaç per a compartir",
     "close": "Tanca",
     "selectLanguage": "Trieu la llengua",
@@ -416,7 +417,7 @@
     }
   },
   "encrypted": {
-    "tooltip": "Els vostres dibuixos estan xifrats de punta a punta de manera que els servidors d’Excalidraw no els veuran mai.",
+    "tooltip": "Els vostres dibuixos estan xifrats de punta a punta de manera que els servidors d'Excalidraw no els veuran mai.",
     "link": "Article del blog sobre encriptació d'extrem a extrem a Excalidraw"
   },
   "stats": {

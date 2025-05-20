@@ -154,6 +154,7 @@
     "save": "Shrani v trenutno datoteko",
     "saveAs": "Shrani kot",
     "load": "Odpri",
+    "importLibrary": "Uvozi knjižnico",
     "getShareableLink": "Pridobi povezavo za deljenje",
     "close": "Zapri",
     "selectLanguage": "Izberi jezik",

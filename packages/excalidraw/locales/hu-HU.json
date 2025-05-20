@@ -154,6 +154,7 @@
     "save": "Mentés az aktuális fájlba",
     "saveAs": "Mentés másként",
     "load": "Megnyitás",
+    "importLibrary": "Könyvtár importálása",
     "getShareableLink": "Megosztható link létrehozása",
     "close": "Bezárás",
     "selectLanguage": "Nyelv kiválasztása",
