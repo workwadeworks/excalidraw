@@ -130,6 +130,9 @@ export type BinaryFileData = {
   version?: number;
 };
 
+// @Excalibar
+export type FileVersion = Required<BinaryFileData>["version"];
+
 export type BinaryFileMetadata = Omit<BinaryFileData, "dataURL">;
 
 export type BinaryFiles = Record<ExcalidrawElement["id"], BinaryFileData>;
