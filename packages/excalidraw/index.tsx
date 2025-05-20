@@ -11,12 +11,17 @@ import WelcomeScreen from "./components/welcome-screen/WelcomeScreen";
 import { defaultLang } from "./i18n";
 import { EditorJotaiProvider, editorJotaiStore } from "./editor-jotai";
 import polyfill from "./polyfill";
+import { useHandleLibrary } from "./data/library";
 
 import "./css/app.scss";
 import "./css/styles.scss";
 import "./fonts/fonts.css";
 
-import type { AppProps, ExcalidrawProps } from "./types";
+import type {
+  AppProps,
+  ExcalidrawProps,
+  ExcalidrawImperativeAPI,
+} from "./types";
 
 polyfill();
 
@@ -57,7 +62,26 @@ const ExcalidrawBase = (props: ExcalidrawProps) => {
 
     // @Excalibar
     onOpenExternalLibrary,
+    libraryAdapter,
   } = props;
+
+  // @Excalibar
+  const excalidrawAPIRef = React.useRef<ExcalidrawImperativeAPI | null>(null);
+
+  const wrappedExcalidrawAPI = React.useCallback(
+    (api: ExcalidrawImperativeAPI) => {
+      excalidrawAPIRef.current = api;
+      if (typeof excalidrawAPI === "function") {
+        excalidrawAPI(api);
+      }
+    },
+    [excalidrawAPI],
+  );
+
+  useHandleLibrary({
+    excalidrawAPI: excalidrawAPIRef.current,
+    adapter: libraryAdapter,
+  });
 
   const canvasActions = props.UIOptions?.canvasActions;
 
@@ -118,7 +142,7 @@ const ExcalidrawBase = (props: ExcalidrawProps) => {
         <App
           onChange={onChange}
           initialData={initialData}
-          excalidrawAPI={excalidrawAPI}
+          excalidrawAPI={wrappedExcalidrawAPI}
           isCollaborating={isCollaborating}
           onPointerUpdate={onPointerUpdate}
           renderTopRightUI={renderTopRightUI}
@@ -148,7 +172,9 @@ const ExcalidrawBase = (props: ExcalidrawProps) => {
           aiEnabled={aiEnabled !== false}
           showDeprecatedFonts={showDeprecatedFonts}
           renderScrollbars={renderScrollbars}
+          // @Excalibar
           onOpenExternalLibrary={onOpenExternalLibrary}
+          libraryAdapter={libraryAdapter}
         >
           {children}
         </App>
@@ -273,7 +299,8 @@ export {
 
 export { CaptureUpdateAction } from "./store";
 
-export { parseLibraryTokensFromUrl, useHandleLibrary } from "./data/library";
+// @Excalibar
+// export { parseLibraryTokensFromUrl, useHandleLibrary } from "./data/library";
 
 export {
   sceneCoordsToViewportCoords,

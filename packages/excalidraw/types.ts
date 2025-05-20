@@ -58,6 +58,7 @@ import type { Language } from "./i18n";
 import type { isOverScrollBars } from "./scene/scrollbars";
 import type React from "react";
 import type { JSX } from "react";
+import type { LibraryPersistenceAdapter } from "./data/library";
 
 export type SocketId = string & { _brand: "SocketId" };
 
@@ -610,6 +611,7 @@ export interface ExcalidrawProps {
 
   // @Excalibar
   onOpenExternalLibrary?: (href: string) => void;
+  libraryAdapter?: LibraryPersistenceAdapter;
 }
 
 export type SceneData = {
