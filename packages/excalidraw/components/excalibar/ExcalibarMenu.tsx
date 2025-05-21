@@ -74,7 +74,7 @@ export const ExcalibarMenu = ({
           <MainMenu.DefaultItems.ToggleTheme
             allowSystemTheme
             theme={appState.theme}
-            onSelect={() => {}} // @Excalibar TODO
+            onSelect={(theme) => setAppState({ theme })}
           />
           <MainMenu.DefaultItems.ChangeCanvasBackground />
         </DropdownMenu.Content>

@@ -728,6 +728,18 @@ class App extends React.Component<AppProps, AppState> {
   >();
   onRemoveEventListenersEmitter = new Emitter<[]>();
 
+  // @Excalibar
+  private canvasTheme: AppState["theme"] = THEME.LIGHT;
+  private getDarkThemeMediaQuery = (): MediaQueryList | undefined =>
+    window.matchMedia?.("(prefers-color-scheme: dark)");
+
+  private handleSystemThemeChange = (e: MediaQueryListEvent) => {
+    if (this.state.theme === THEME.SYSTEM) {
+      this.canvasTheme = e.matches ? THEME.DARK : THEME.LIGHT;
+      this.triggerRender(true);
+    }
+  };
+
   constructor(props: AppProps) {
     super(props);
     const defaultAppState = getDefaultAppState();
@@ -740,6 +752,15 @@ class App extends React.Component<AppProps, AppState> {
       theme = defaultAppState.theme,
       name = `${t("labels.untitled")}-${getDateTime()}`,
     } = props;
+
+    // @Excalibar
+    if (theme === THEME.SYSTEM) {
+      const isDarkMode = this.getDarkThemeMediaQuery()?.matches;
+      this.canvasTheme = isDarkMode ? THEME.DARK : THEME.LIGHT;
+    } else {
+      this.canvasTheme = theme;
+    }
+
     this.state = {
       ...defaultAppState,
       theme,
@@ -1146,7 +1167,7 @@ class App extends React.Component<AppProps, AppState> {
                         width: 100%;
                         height: 100%;
                         color: ${
-                          this.state.theme === THEME.DARK ? "white" : "black"
+                          this.canvasTheme === THEME.DARK ? "white" : "black"
                         };
                       }
                       body {
@@ -1336,7 +1357,7 @@ class App extends React.Component<AppProps, AppState> {
                       className="excalidraw__embeddable"
                       srcDoc={
                         src?.type === "document"
-                          ? src.srcdoc(this.state.theme)
+                          ? src.srcdoc(this.canvasTheme)
                           : undefined
                       }
                       src={
@@ -1429,7 +1450,7 @@ class App extends React.Component<AppProps, AppState> {
       return null;
     }
 
-    const isDarkTheme = this.state.theme === THEME.DARK;
+    const isDarkTheme = this.canvasTheme === THEME.DARK;
 
     return this.scene.getNonDeletedFramesLikes().map((f) => {
       if (
@@ -2559,6 +2580,12 @@ class App extends React.Component<AppProps, AppState> {
     this.excalidrawContainerValue.container =
       this.excalidrawContainerRef.current;
 
+    // @Excalibar
+    const mediaQuery = this.getDarkThemeMediaQuery();
+    if (mediaQuery) {
+      mediaQuery.addEventListener("change", this.handleSystemThemeChange);
+    }
+
     if (isTestEnv() || isDevEnv()) {
       const setState = this.setState.bind(this);
       Object.defineProperties(window.h, {
@@ -2667,6 +2694,10 @@ class App extends React.Component<AppProps, AppState> {
     // @Excalibar
     this.onThemeChangeEmitter.clear();
     this.onToolChangeEmitter.clear();
+    const mediaQuery = this.getDarkThemeMediaQuery();
+    if (mediaQuery) {
+      mediaQuery.removeEventListener("change", this.handleSystemThemeChange);
+    }
   }
 
   private onResize = withBatchedUpdates(() => {
@@ -2946,7 +2977,9 @@ class App extends React.Component<AppProps, AppState> {
 
     this.excalidrawContainerRef.current?.classList.toggle(
       "theme--dark",
-      this.state.theme === THEME.DARK,
+      // @Excalibar
+      // this.state.theme === THEME.DARK,
+      this.canvasTheme === THEME.DARK,
     );
 
     if (
@@ -3012,7 +3045,15 @@ class App extends React.Component<AppProps, AppState> {
 
     // @Excalibar
     if (prevState.theme !== this.state.theme) {
+      if (this.state.theme === THEME.SYSTEM) {
+        const isDarkMode = this.getDarkThemeMediaQuery()?.matches;
+        this.canvasTheme = isDarkMode ? THEME.DARK : THEME.LIGHT;
+      } else {
+        this.canvasTheme = this.state.theme;
+      }
+
       this.onThemeChangeEmitter.trigger(this.state.theme);
+      this.triggerRender(true);
     }
     if (prevState.activeTool !== this.state.activeTool) {
       this.onToolChangeEmitter.trigger(this.state.activeTool);

@@ -229,9 +229,10 @@ export const ToggleTheme = (
   const actionManager = useExcalidrawActionManager();
   const shortcut = getShortcutFromShortcutName("toggleTheme");
 
-  if (!actionManager.isActionEnabled(actionToggleTheme)) {
-    return null;
-  }
+  // @Excalibar
+  // if (!actionManager.isActionEnabled(actionToggleTheme)) {
+  //   return null;
+  // }
 
   if (props?.allowSystemTheme) {
     return (
