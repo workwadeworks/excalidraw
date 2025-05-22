@@ -4428,20 +4428,21 @@ class App extends React.Component<AppProps, AppState> {
         }
       }
 
-      if (
-        event[KEYS.CTRL_OR_CMD] &&
-        event.key === KEYS.P &&
-        !event.shiftKey &&
-        !event.altKey
-      ) {
-        this.setToast({
-          message: t("commandPalette.shortcutHint", {
-            shortcut: getShortcutFromShortcutName("commandPalette"),
-          }),
-        });
-        event.preventDefault();
-        return;
-      }
+      // @Excalibar
+      // if (
+      //   event[KEYS.CTRL_OR_CMD] &&
+      //   event.key === KEYS.P &&
+      //   !event.shiftKey &&
+      //   !event.altKey
+      // ) {
+      //   this.setToast({
+      //     message: t("commandPalette.shortcutHint", {
+      //       shortcut: getShortcutFromShortcutName("commandPalette"),
+      //     }),
+      //   });
+      //   event.preventDefault();
+      //   return;
+      // }
 
       if (event[KEYS.CTRL_OR_CMD] && event.key.toLowerCase() === KEYS.V) {
         IS_PLAIN_PASTE = event.shiftKey;
