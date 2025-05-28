@@ -77,19 +77,37 @@ export const fileOpen = <M extends boolean | undefined = false>(opts: {
   }) as Promise<RetType>;
 };
 
+// @Excalibar
+export type FileSaveOptions = {
+  /** supply without the extension */
+  name: string;
+  /** file extension */
+  extension: FILE_EXTENSION;
+  mimeTypes?: string[];
+  description: string;
+  /** existing FileSystemHandle */
+  fileHandle?: FileSystemHandle | null;
+};
+
 export const fileSave = (
   blob: Blob | Promise<Blob>,
-  opts: {
-    /** supply without the extension */
-    name: string;
-    /** file extension */
-    extension: FILE_EXTENSION;
-    mimeTypes?: string[];
-    description: string;
-    /** existing FileSystemHandle */
-    fileHandle?: FileSystemHandle | null;
-  },
+  opts: FileSaveOptions,
+  // @Excalibar
+  onFileSave?: (
+    blob: Blob,
+    opts: FileSaveOptions,
+  ) => Promise<FileSystemHandle | null>,
 ) => {
+  // @Excalibar
+  if (!nativeFileSystemSupported && onFileSave) {
+    if (blob instanceof Promise) {
+      return blob.then((resolvedBlob) => {
+        return onFileSave(resolvedBlob, opts);
+      });
+    }
+    return onFileSave(blob, opts);
+  }
+
   return _fileSave(
     blob,
     {

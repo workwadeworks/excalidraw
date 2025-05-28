@@ -33,7 +33,7 @@ import { canvasToBlob } from "./blob";
 import { fileSave } from "./filesystem";
 import { serializeAsJSON } from "./json";
 
-import type { FileSystemHandle } from "./filesystem";
+import type { FileSaveOptions, FileSystemHandle } from "./filesystem";
 
 import type { ExportType } from "../scene/types";
 import type { AppState, BinaryFiles } from "../types";
@@ -113,6 +113,11 @@ export const exportCanvas = async (
     fileHandle?: FileSystemHandle | null;
     exportingFrame: ExcalidrawFrameLikeElement | null;
   },
+  // @Excalibar
+  onFileSave?: (
+    blob: Blob,
+    opts: FileSaveOptions,
+  ) => Promise<FileSystemHandle | null>,
 ) => {
   if (elements.length === 0) {
     throw new Error(t("alerts.cannotExportEmptyCanvas"));
@@ -148,6 +153,8 @@ export const exportCanvas = async (
           mimeTypes: [IMAGE_MIME_TYPES.svg],
           fileHandle,
         },
+        // @Excalibar
+        onFileSave,
       );
     } else if (type === "clipboard-svg") {
       const svg = await svgPromise.then((svg) => svg.outerHTML);
@@ -181,13 +188,18 @@ export const exportCanvas = async (
       );
     }
 
-    return fileSave(blob, {
-      description: "Export to PNG",
-      name,
-      extension: appState.exportEmbedScene ? "excalidraw.png" : "png",
-      mimeTypes: [IMAGE_MIME_TYPES.png],
-      fileHandle,
-    });
+    return fileSave(
+      blob,
+      {
+        description: "Export to PNG",
+        name,
+        extension: appState.exportEmbedScene ? "excalidraw.png" : "png",
+        mimeTypes: [IMAGE_MIME_TYPES.png],
+        fileHandle,
+      },
+      // @Excalibar
+      onFileSave,
+    );
   } else if (type === "clipboard") {
     try {
       const blob = canvasToBlob(tempCanvas);

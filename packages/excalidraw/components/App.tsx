@@ -1995,6 +1995,8 @@ class App extends React.Component<AppProps, AppState> {
         viewBackgroundColor: this.state.viewBackgroundColor,
         exportingFrame: opts.exportingFrame,
       },
+      // @Excalibar
+      this.props.onFileSave,
     )
       .catch(muteFSAbortError)
       .catch((error) => {

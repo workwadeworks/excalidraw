@@ -48,7 +48,7 @@ import type { Spreadsheet } from "./charts";
 import type { ClipboardData } from "./clipboard";
 import type App from "./components/App";
 import type Library from "./data/library";
-import type { FileSystemHandle } from "./data/filesystem";
+import type { FileSaveOptions, FileSystemHandle } from "./data/filesystem";
 import type { ContextMenuItems } from "./components/ContextMenu";
 import type { SnapLine } from "./snapping";
 import type { CaptureUpdateActionType } from "./store";
@@ -358,7 +358,9 @@ export interface AppState {
   openSidebar: { name: SidebarName; tab?: SidebarTabName } | null;
   openDialog:
     | null
-    | { name: "imageExport" | "help" | "jsonExport" }
+    // @Excalibar
+    // | { name: "imageExport" | "help" | "jsonExport" }
+    | { name: "imageExport" | "help" | "jsonExport" | "overwriteConfirm" }
     | { name: "ttd"; tab: "text-to-diagram" | "mermaid" }
     | { name: "commandPalette" }
     | { name: "elementLinkSelector"; sourceElementId: ExcalidrawElement["id"] };
@@ -612,6 +614,10 @@ export interface ExcalidrawProps {
   // @Excalibar
   onOpenExternalLibrary?: (href: string) => void;
   libraryAdapter?: LibraryPersistenceAdapter;
+  onFileSave?: (
+    blob: Blob,
+    opts: FileSaveOptions,
+  ) => Promise<FileSystemHandle | null>;
 }
 
 export type SceneData = {

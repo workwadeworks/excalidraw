@@ -214,6 +214,7 @@ export const actionSaveFileToDisk = register({
         },
         app.files,
         app.getName(),
+        app.props.onFileSave,
       );
       return {
         captureUpdate: CaptureUpdateAction.EVENTUALLY,

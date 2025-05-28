@@ -55,6 +55,7 @@ export const LibraryDropdownMenuButton: React.FC<{
   libraryReturnUrl: ExcalidrawProps["libraryReturnUrl"];
   id: string;
   onOpenExternalLibrary?: ExcalidrawProps["onOpenExternalLibrary"];
+  onFileSave?: ExcalidrawProps["onFileSave"];
 }> = ({
   setAppState,
   selectedItems,
@@ -68,6 +69,7 @@ export const LibraryDropdownMenuButton: React.FC<{
   // @Excalibar
   id,
   onOpenExternalLibrary,
+  onFileSave,
 }) => {
   const [libraryItemsData] = useAtom(libraryItemsAtom);
   const [isLibraryMenuOpen, setIsLibraryMenuOpen] = useAtom(
@@ -211,7 +213,8 @@ export const LibraryDropdownMenuButton: React.FC<{
     const libraryItems = itemsSelected
       ? items
       : await library.getLatestLibrary();
-    saveLibraryAsJSON(libraryItems)
+    // @Excalibar
+    saveLibraryAsJSON(libraryItems, onFileSave)
       .catch(muteFSAbortError)
       .catch((error) => {
         setAppState({ errorMessage: error.message });
@@ -327,7 +330,7 @@ export const LibraryDropdownMenu = ({
   id: string;
   onOpenExternalLibrary?: ExcalidrawProps["onOpenExternalLibrary"];
 }) => {
-  const { library } = useApp();
+  const { library, props } = useApp();
   const { clearLibraryCache, deleteItemsFromLibraryCache } = useLibraryCache();
   const appState = useUIAppState();
   const setAppState = useExcalidrawSetAppState();
@@ -368,6 +371,7 @@ export const LibraryDropdownMenu = ({
       libraryReturnUrl={libraryReturnUrl}
       id={id}
       onOpenExternalLibrary={onOpenExternalLibrary}
+      onFileSave={props.onFileSave}
     />
   );
 };

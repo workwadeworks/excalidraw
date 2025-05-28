@@ -122,21 +122,22 @@ export const JSONExportDialog = ({
   }, [setAppState]);
 
   return (
-    <>
-      {appState.openDialog?.name === "jsonExport" && (
-        <Dialog onCloseRequest={handleClose} title={t("buttons.export")}>
-          <JSONExportModal
-            elements={elements}
-            appState={appState}
-            setAppState={setAppState}
-            files={files}
-            actionManager={actionManager}
-            onCloseRequest={handleClose}
-            exportOpts={exportOpts}
-            canvas={canvas}
-          />
-        </Dialog>
-      )}
-    </>
+    // @Excalibar
+    // <>
+    //   {appState.openDialog?.name === "jsonExport" && (
+    <Dialog onCloseRequest={handleClose} title={t("buttons.export")}>
+      <JSONExportModal
+        elements={elements}
+        appState={appState}
+        setAppState={setAppState}
+        files={files}
+        actionManager={actionManager}
+        onCloseRequest={handleClose}
+        exportOpts={exportOpts}
+        canvas={canvas}
+      />
+    </Dialog>
+    //   )}
+    // </>
   );
 };

@@ -63,6 +63,7 @@ const ExcalidrawBase = (props: ExcalidrawProps) => {
     // @Excalibar
     onOpenExternalLibrary,
     libraryAdapter,
+    onFileSave,
   } = props;
 
   // @Excalibar
@@ -175,6 +176,7 @@ const ExcalidrawBase = (props: ExcalidrawProps) => {
           // @Excalibar
           onOpenExternalLibrary={onOpenExternalLibrary}
           libraryAdapter={libraryAdapter}
+          onFileSave={onFileSave}
         >
           {children}
         </App>

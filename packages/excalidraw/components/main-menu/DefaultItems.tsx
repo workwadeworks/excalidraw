@@ -51,12 +51,17 @@ export const LoadScene = () => {
   const { t } = useI18n();
   const actionManager = useExcalidrawActionManager();
   const elements = useExcalidrawElements();
+  // @Excalibar
+  const setAppState = useExcalidrawSetAppState();
 
   if (!actionManager.isActionEnabled(actionLoadScene)) {
     return null;
   }
 
   const handleSelect = async () => {
+    // @Excalibar
+    setAppState({ openDialog: { name: "overwriteConfirm" } });
+
     if (
       !elements.length ||
       (await openConfirmModal({

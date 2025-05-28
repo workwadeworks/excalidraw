@@ -16,7 +16,9 @@ import type { ExcalidrawElement } from "@excalidraw/element/types";
 import { cleanAppStateForExport, clearAppStateForDatabase } from "../appState";
 
 import { isImageFileHandle, loadFromBlob, normalizeFile } from "./blob";
-import { fileOpen, fileSave } from "./filesystem";
+import { fileOpen, fileSave, type FileSaveOptions } from "./filesystem";
+
+import type { FileSystemHandle } from "browser-fs-access";
 
 import type { AppState, BinaryFiles, LibraryItems } from "../types";
 import type {
@@ -81,20 +83,29 @@ export const saveAsJSON = async (
   files: BinaryFiles,
   /** filename */
   name: string = appState.name || DEFAULT_FILENAME,
+  onFileSave?: (
+    blob: Blob,
+    opts: FileSaveOptions,
+  ) => Promise<FileSystemHandle | null>,
 ) => {
   const serialized = serializeAsJSON(elements, appState, files, "local");
   const blob = new Blob([serialized], {
     type: MIME_TYPES.excalidraw,
   });
 
-  const fileHandle = await fileSave(blob, {
-    name,
-    extension: "excalidraw",
-    description: "Excalidraw file",
-    fileHandle: isImageFileHandle(appState.fileHandle)
-      ? null
-      : appState.fileHandle,
-  });
+  const fileHandle = await fileSave(
+    blob,
+    {
+      name,
+      extension: "excalidraw",
+      description: "Excalidraw file",
+      fileHandle: isImageFileHandle(appState.fileHandle)
+        ? null
+        : appState.fileHandle,
+    },
+    // @Excalibar
+    onFileSave,
+  );
   return { fileHandle };
 };
 
@@ -148,7 +159,13 @@ export const serializeLibraryAsJSON = (libraryItems: LibraryItems) => {
   return JSON.stringify(data, null, 2);
 };
 
-export const saveLibraryAsJSON = async (libraryItems: LibraryItems) => {
+export const saveLibraryAsJSON = async (
+  libraryItems: LibraryItems,
+  onFileSave?: (
+    blob: Blob,
+    opts: FileSaveOptions,
+  ) => Promise<FileSystemHandle | null>,
+) => {
   const serialized = serializeLibraryAsJSON(libraryItems);
   await fileSave(
     new Blob([serialized], {
@@ -159,5 +176,7 @@ export const saveLibraryAsJSON = async (libraryItems: LibraryItems) => {
       extension: "excalidrawlib",
       description: "Excalidraw library file",
     },
+    // @Excalibar
+    onFileSave,
   );
 };

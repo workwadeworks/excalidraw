@@ -29,6 +29,7 @@ import { ExcalibarMenu } from "./ExcalibarMenu";
 import { ExcalibarZoomToolbar } from "./ExcalibarZoomToolbar";
 import { ScrollBackButton } from "./ScrollBackButton";
 import { ExcalibarSidebar } from "./ExcalibarSidebar";
+import { OverwriteConfirmDialog } from "./OverwriteConfirmDialog";
 
 import type { ActionManager } from "../../actions/manager";
 import type {
@@ -158,6 +159,9 @@ const ExcalibarUi = ({
           appState={appState}
           generateLinkForSelection={generateLinkForSelection}
         />
+      )}
+      {appState.openDialog?.name === "overwriteConfirm" && (
+        <OverwriteConfirmDialog />
       )}
       {appState.openDialog?.name === "jsonExport" && (
         <JSONExportDialog
