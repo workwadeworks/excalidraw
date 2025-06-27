@@ -21,7 +21,7 @@ import {
 import { LinearElementEditor } from "./linearElementEditor";
 import { mutateElement } from "./mutateElement";
 import { newArrowElement, newElement } from "./newElement";
-import { aabbForElement } from "./shapes";
+import { aabbForElement } from "./bounds";
 import { elementsAreInFrameBounds, elementOverlapsWithFrame } from "./frame";
 import {
   isBindableElement,
@@ -39,7 +39,7 @@ import {
   type OrderedExcalidrawElement,
 } from "./types";
 
-import type Scene from "./Scene";
+import type { Scene } from "./Scene";
 
 type LinkDirection = "up" | "right" | "down" | "left";
 
@@ -95,10 +95,11 @@ const getNodeRelatives = (
           type === "predecessors" ? el.points[el.points.length - 1] : [0, 0]
         ) as Readonly<LocalPoint>;
 
-        const heading = headingForPointFromElement(node, aabbForElement(node), [
-          edgePoint[0] + el.x,
-          edgePoint[1] + el.y,
-        ] as Readonly<GlobalPoint>);
+        const heading = headingForPointFromElement(
+          node,
+          aabbForElement(node, elementsMap),
+          [edgePoint[0] + el.x, edgePoint[1] + el.y] as Readonly<GlobalPoint>,
+        );
 
         acc.push({
           relative,
@@ -462,12 +463,18 @@ const createBindingArrow = (
     bindingArrow as OrderedExcalidrawElement,
   );
 
-  LinearElementEditor.movePoints(bindingArrow, scene, [
-    {
-      index: 1,
-      point: bindingArrow.points[1],
-    },
-  ]);
+  LinearElementEditor.movePoints(
+    bindingArrow,
+    scene,
+    new Map([
+      [
+        1,
+        {
+          point: bindingArrow.points[1],
+        },
+      ],
+    ]),
+  );
 
   const update = updateElbowArrowPoints(
     bindingArrow,

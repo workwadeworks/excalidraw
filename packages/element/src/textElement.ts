@@ -30,7 +30,7 @@ import {
   isTextElement,
 } from "./typeChecks";
 
-import type Scene from "./Scene";
+import type { Scene } from "./Scene";
 
 import type { MaybeTransformHandleType } from "./transformHandles";
 import type {
@@ -326,10 +326,7 @@ export const getContainerCenter = (
   if (!midSegmentMidpoint) {
     midSegmentMidpoint = LinearElementEditor.getSegmentMidPoint(
       container,
-      points[index],
-      points[index + 1],
       index + 1,
-      elementsMap,
     );
   }
   return { x: midSegmentMidpoint[0], y: midSegmentMidpoint[1] };

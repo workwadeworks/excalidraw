@@ -10,6 +10,7 @@ import {
   STATS_PANELS,
   THEME,
   DEFAULT_GRID_STEP,
+  isTestEnv,
 } from "@excalidraw/common";
 
 import type { AppState, NormalizedZoomValue } from "./types";
@@ -36,7 +37,7 @@ export const getDefaultAppState = (): Omit<
     currentItemRoughness: DEFAULT_ELEMENT_PROPS.roughness,
     currentItemStartArrowhead: null,
     currentItemStrokeColor: DEFAULT_ELEMENT_PROPS.strokeColor,
-    currentItemRoundness: "round",
+    currentItemRoundness: isTestEnv() ? "sharp" : "round",
     currentItemArrowType: ARROW_TYPE.round,
     currentItemStrokeStyle: DEFAULT_ELEMENT_PROPS.strokeStyle,
     currentItemStrokeWidth: DEFAULT_ELEMENT_PROPS.strokeWidth,
@@ -108,7 +109,6 @@ export const getDefaultAppState = (): Omit<
       value: 1 as NormalizedZoomValue,
     },
     viewModeEnabled: false,
-    pendingImageElementId: null,
     showHyperlinkPopup: false,
     selectedLinearElement: null,
     snapLines: [],
@@ -121,7 +121,9 @@ export const getDefaultAppState = (): Omit<
     followedBy: new Set(),
     isCropping: false,
     croppingElementId: null,
-    searchMatches: [],
+    searchMatches: null,
+    lockedMultiSelections: {},
+    activeLockedId: null,
   };
 };
 
@@ -235,7 +237,6 @@ const APP_STATE_STORAGE_CONF = (<
   zenModeEnabled: { browser: true, export: false, server: false },
   zoom: { browser: true, export: false, server: false },
   viewModeEnabled: { browser: false, export: false, server: false },
-  pendingImageElementId: { browser: false, export: false, server: false },
   showHyperlinkPopup: { browser: false, export: false, server: false },
   selectedLinearElement: { browser: true, export: false, server: false },
   snapLines: { browser: false, export: false, server: false },
@@ -246,6 +247,8 @@ const APP_STATE_STORAGE_CONF = (<
   isCropping: { browser: false, export: false, server: false },
   croppingElementId: { browser: false, export: false, server: false },
   searchMatches: { browser: false, export: false, server: false },
+  lockedMultiSelections: { browser: true, export: true, server: true },
+  activeLockedId: { browser: false, export: false, server: false },
 });
 
 const _clearAppStateForStorage = <
